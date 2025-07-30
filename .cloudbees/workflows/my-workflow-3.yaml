@@ -32,13 +32,10 @@ jobs:
         uses: cloudbees-io/publish-evidence-item@v1
     needs: deploy-to-dev
   prod-approval:
-    timeout-minutes: 4320
-    delegates: cloudbees-io/manual-approval/custom-job.yml@v1
     needs: deploy-to-dev
     with:
-      approvers: ""
+      approvers: manual-approval-test
       disallowLaunchByUser: false
-      notifyAllEligibleUsers: false
       instructions: ""
       approvalInputs: |
         string_param:
@@ -55,3 +52,5 @@ jobs:
             - op1
             - op2
           default: ""
+    timeout-minutes: 4320
+    delegates: cloudbees-io/manual-approval/custom-job.yml@v1
